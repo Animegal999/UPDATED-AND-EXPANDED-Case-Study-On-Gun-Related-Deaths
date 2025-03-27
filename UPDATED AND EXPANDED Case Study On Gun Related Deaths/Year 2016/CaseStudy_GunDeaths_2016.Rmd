@@ -1,0 +1,200 @@
+---
+Title of Study: Expanded Case Study on Gun Related Deaths 
+Author: Amber P. Giza
+File Format and Title: CaseStudy_GunDeaths_2016.Rmd
+---
+
+# Step 1: Importing and viewing the data
+
+Similarly to what I did for the past study I conducted back in January of 2025, 
+this file and all others will follow the same format. First off, I added the necessary 
+imports for the purposes of the R file. After the imports, we can view the csv file 
+and data, which shows us 38,658 total rows. 
+
+```{r}
+install.packages("ggplot2")
+install.packages("tinytex")
+install.packages("rmarkdown", dep = TRUE)
+install.packages("plotly")
+install.packages("DescTools")
+install.packages("dplyr")
+
+library(ggplot2)
+library(tinytex)
+library(rmarkdown)
+library(plotly)
+library(DescTools)
+library(dplyr)
+
+gunDeathsData_2016 <- read.csv("/content/guns_2016.csv", header = TRUE, sep = ",")
+View(gunDeathsData_2016)
+```
+
+Next, we check to see if there are any nulls inside the data. Since there are no nulls,
+there is no extra need to further clean up the data.
+
+```{r}
+# Any null data?
+sum(is.na(gunDeathsData_2016))
+```
+
+Afterwards, I retrieved the next data in the csv files. Since there was only one column
+that was an integer/double, I immediately did the analysis for each of the four main measurements:
+
+* Mean
+* Median
+* Mode
+* Standard Deviation
+
+Starting off with the mean, which is close to 43 years old.
+
+```{r}
+print("Mean values for each numeric column:")
+print("Mean Age: ") # 42.956
+mean(gunDeathsData_2016$age)
+```
+
+Next is the median, which is less than the mean:
+
+```{r}
+# Median Age:
+print("Median value for the age column:") # 40
+median(gunDeathsData_2016$age)
+```
+
+Next is the mode age, which is 25 years old (same value found with Python)
+
+```{r}
+# Mode Age:
+print("Most occuring value for the age column:") # 25
+Mode(gunDeathsData_2016$age)
+```
+
+Lastly is Standard Deviation, which can gives us how the age column is statistically varied.
+
+```{r}
+# Standard Deviation Age:
+print("Standard Deviation of the age:") #19.497 years
+SD(gunDeathsData_2016$age)
+```
+
+# Graphs and Boxplots
+
+Now come the boxplots! For the five that I generated here:
+
+* African American/Black victims had the most outliers, when measuring their ages
+* Hispanic victims had the second most outliers
+* White/Caucasian victims had the most "normally" distributed data for age
+
+```{r, echo=FALSE}
+boxplot(gunDeathsData_2016$age ~ gunDeathsData_2016$race, data = gunDeathsData_2016,
+        main = "Age of Victims of Gun-related Deaths by Race",
+        xlab = "Race",
+        ylab = "Age")
+```
+
+By looking at the histogram here, we can see that many people around the ages of 20-24
+died the most. This area holds the mode as well.
+
+```{r, echo=FALSE}
+# Constructing the histogram:
+
+hist(gunDeathsData_2016$age, xlab="Victims of Gun Violence By Age", col = "red", border = "black")
+```
+
+I made boxplots here that detailed people's ages along with their gender. Here, both genders have no
+outliers.
+
+```{r, echo=FALSE}
+# Creating a boxplot on age and gender:
+boxplot(gunDeathsData_2016$age ~ gunDeathsData_2016$sex, data = gunDeathsData_2016,
+        main = "Age of Victims of Gun-related Deaths by Gender",
+        xlab = "Gender",
+        ylab = "Age")
+```
+
+This next histogram shows the number of deaths by month. This also shows that July had the most 
+victims.
+
+```{r, echo=FALSE}
+# Constructing the histogram for number of deaths by month:
+
+hist(gunDeathsData_2016$month, xlab="Total Victims of Gun Violence By Month", col = "blue", border = "black")
+```
+
+For the last graph, it's a series of boxplots detailing a person's age and intentions with the gun.
+Here:
+
+* Homicides had the most outliers when comapring the ages of the victims
+* Accidental deaths, Undetermined Intentions, and Suicides have no outliers
+* The Suicide boxplot has the most "normally" distributed data
+
+```{r, echo=FALSE}
+# Creating a boxplot on age and intentions behind the gun:
+boxplot(gunDeathsData_2016$age ~ gunDeathsData_2016$intent, data = gunDeathsData_2016,
+  main = "Age of victims of Gun-related Deaths by Intent",
+  xlab = "Intentions With the Gun",
+  ylab = "Age")
+```
+# Counting the Non-Numeric data
+
+I had to do the same thing here with counting the percentages of the victims here, like I did with 
+the past study. Here, I used dplyr, to count the categorical columns and I'd add find the percentages
+by hand. 
+
+```{r}
+gunDeathsData_2016 %>%
+  count(gunDeathsData_2016$race)
+```
+
+## For the percentages: (Total is 38,658 victims)
+* Asian/Pacific Islander -> 1.5%
+* African American/Black -> 25.87%
+* Hispanic -> 9.755%
+* Native American -> 1.01%
+* White -> 61.865%
+
+Next, I did the same thing for the columns on gender:
+
+```{r}
+gunDeathsData_2006 %>%
+  count(gunDeathsData_2006$sex)
+```
+
+## For the percentages:
+* Female -> 14.65%
+* Male -> 85.35%
+
+Next, I did the same thing for the columns on intentions with the gun:
+
+```{r}
+gunDeathsData_2016 %>%
+  count(gunDeathsData_2016$intent)
+```
+
+## For the percentages:
+* Accidental Deaths -> 1.28%
+* Homicides -> 38.61%
+* Suicides -> 59.34%
+* Undetermined -> 0.77%
+
+Lastly, I calculated the percentages for the months of when the victims died in 2006.
+
+```{r}
+gunDeathsData_2016 %>%
+  count(gunDeathsData_2016$month)
+```
+
+## For the percentages:
+* January/1 -> 7.957%
+* February/2 -> 7.129%
+* March/3 -> 8.384%
+* April/4 -> 8.195%
+* May/5 -> 8.329%
+* June/6 -> 8.438%
+* July/7 -> 9.054%
+* August/8 -> 9.045%
+* September/9 -> 8.441%
+* October/10 -> 8.743%
+* November/11 -> 8.195%
+* December/12 -> 8.09%

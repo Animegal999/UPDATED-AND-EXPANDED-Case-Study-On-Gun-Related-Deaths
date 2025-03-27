@@ -1,0 +1,61 @@
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ABOUT THIS FOLDER:
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+This is a massive repository of data from Kaggle that relates to gun related deaths, from the years
+2006-2020 in the United States. This folder contains data for the year 2012.
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+DATASET INFORMATION:
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+- 33,563 rows of data
+- 10 columns of data
+- Year: Year that the incident took place. In this dataset, this value is always set to 2012.
+- Month: Month that the incident took place. In this dataset, the months are numbered (1 for January, 2 for February, etc.)
+- Intent: The intentions behind the gun usage. 
+- Police: Were the police contacted? 0 means no or unknown, and 1 means yes.
+- Gender: The gender of the victim.
+- Age: The age of the victim.
+- Race: Race of the victim.
+- Hispanic: If the victim is Hispanic, yes. If not, no.
+- Place: Where the incident took place
+- Education: The highest amount of education that the victim has.
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+CLEANING: 
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+- Converted all numbers from text values to numerical values
+- Replaced N/A values with the mean age in the age column (43.43158522)
+- Replaced blank columns with the mean if numerical, or "Unknown" for text/character values
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+EXCEL WORKBOOK:
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Because of the many rows of data, the data can't really be represented into a chart of any kind
+inside Excel. Therefore, I'll rely on Jupyter (R and Python) for analyzing the data. 
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+JUPYTER NOTEBOOK (PYTHON):
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+From Python, running the mean, median, and mode determined that:
+- The most gun-related deaths occurred during the month of July (2012).
+- Most of the victims were male.
+- Most of the victims died at home.
+- Most victims were 22-years-old
+- Most victims had either their High School Diploma, or GED.
+- The police never intervened for most of these incidents.
+
+When comparing this data to the previous year (2011):
+
+- Mode age was the same, but the mean age of the victims was slightly higher in 2012.
+- More people died overall in 2012.
+- More people died from homicides in 2012.
+- No outliers for both years!
+
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+JUPYTER NOTEBOOK (R):
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
